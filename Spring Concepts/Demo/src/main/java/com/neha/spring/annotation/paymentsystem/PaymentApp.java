@@ -8,5 +8,7 @@ public class PaymentApp {
         ApplicationContext context = new AnnotationConfigApplicationContext("com.neha.spring.annotation.paymentsystem");
         AlertService alertService = context.getBean(AlertService.class);
         alertService.sendAlert();
+
+
     }
 }
