@@ -1,12 +1,11 @@
-package com.snz.chapter2.controllers;
+package com.snz.chapter2.example1.controllers;
 
-import com.snz.chapter2.dto.Employee;
+import com.snz.chapter2.example1.dto.Employee;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Lazy
+//@Lazy
 public class EmployeeController {
 
     @Value("${employee.name}")

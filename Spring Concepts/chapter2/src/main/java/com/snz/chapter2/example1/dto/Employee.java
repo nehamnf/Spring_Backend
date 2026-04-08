@@ -1,4 +1,4 @@
-package com.snz.chapter2.dto;
+package com.snz.chapter2.example1.dto;
 
 public class Employee {
     private Long id;
