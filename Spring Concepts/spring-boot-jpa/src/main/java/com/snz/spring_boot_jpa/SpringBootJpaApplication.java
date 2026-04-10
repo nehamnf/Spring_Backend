@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Scanner;
+
 @SpringBootApplication
 public class SpringBootJpaApplication {
 
@@ -16,9 +18,14 @@ public class SpringBootJpaApplication {
 
 	}
 
+//	@Bean
+//	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
+//		return s ->createStudent(studentDao);
+//	}
+
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
-		return s ->createStudent(studentDao);
+		return s ->readStudent(studentDao);
 	}
 
 	public void createStudent(StudentDao studentDao){
@@ -30,4 +37,11 @@ public class SpringBootJpaApplication {
 
 		System.out.println("Saved Student Id is "+student.getId());
 	}
+
+	public void readStudent(StudentDao studentDao){
+		System.out.println("Enter student id to find");
+		Scanner sc = new Scanner(System.in);
+		studentDao.findById(sc.nextInt());
+	}
+
 }

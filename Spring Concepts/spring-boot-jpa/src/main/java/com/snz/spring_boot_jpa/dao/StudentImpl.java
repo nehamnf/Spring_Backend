@@ -17,6 +17,7 @@ public class StudentImpl implements StudentDao {
         this.entityManager=entityManager;
     }
 
+    //create
      @Override
      @Transactional
      public void save(Student student) {
@@ -24,6 +25,7 @@ public class StudentImpl implements StudentDao {
          entityManager.persist(student);
      }
 
+     //read
     @Override
     public void findById(Integer id) {
             Student student = entityManager.find(Student.class, id);
