@@ -6,7 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -18,14 +20,31 @@ public class SpringBootJpaApplication {
 
 	}
 
+	@Order(1)
+	@Bean
+	public CommandLineRunner commandLineRunner1(StudentDao studentDao) {
+		return s ->createStudent(studentDao);
+	}
+
 //	@Bean
 //	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
-//		return s ->createStudent(studentDao);
+//		return s ->readStudent(studentDao);
 //	}
 
+	@Order(2)
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
-		return s ->readStudent(studentDao);
+		return s -> {
+			findAll(studentDao);
+		};
+	}
+
+	@Order(3)
+	@Bean
+	public CommandLineRunner commandLineRunner2(StudentDao studentDao) {
+		return s -> {
+			findByLastName(studentDao);
+		};
 	}
 
 	public void createStudent(StudentDao studentDao){
@@ -42,6 +61,21 @@ public class SpringBootJpaApplication {
 		System.out.println("Enter student id to find");
 		Scanner sc = new Scanner(System.in);
 		studentDao.findById(sc.nextInt());
+	}
+
+	public void findAll(StudentDao studentDao){
+		for(Student student : studentDao.findAll()){
+			System.out.println(student);
+		}
+	}
+
+	public void findByLastName(StudentDao studentDao){
+		System.out.println("Enter last name to find");
+		Scanner sc = new Scanner(System.in);
+		List<Student> list = studentDao.findByLastName(sc.next());
+		for (Student student : list) {
+			System.out.println(student);
+		}
 	}
 
 }

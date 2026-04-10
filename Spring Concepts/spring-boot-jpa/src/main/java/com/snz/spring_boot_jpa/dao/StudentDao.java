@@ -2,8 +2,12 @@ package com.snz.spring_boot_jpa.dao;
 
 import com.snz.spring_boot_jpa.entity.Student;
 
+import java.util.List;
+
 public interface StudentDao {
     public void save(Student student);
     public void findById(Integer id);
+    public List<Student> findAll();
+    public List<Student> findByLastName(String lastName);
 
 }
