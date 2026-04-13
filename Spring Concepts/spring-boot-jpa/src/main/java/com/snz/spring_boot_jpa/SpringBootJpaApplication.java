@@ -20,30 +20,33 @@ public class SpringBootJpaApplication {
 
 	}
 
-	@Order(1)
-	@Bean
-	public CommandLineRunner commandLineRunner1(StudentDao studentDao) {
-		return s ->createStudent(studentDao);
-	}
+//	@Order(1)
+//	@Bean
+//	public CommandLineRunner commandLineRunner1(StudentDao studentDao) {
+//		return s ->createStudent(studentDao);
+//	}
 
 //	@Bean
 //	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
 //		return s ->readStudent(studentDao);
 //	}
 
-	@Order(2)
-	@Bean
-	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
-		return s -> {
-			findAll(studentDao);
-		};
-	}
+//	@Order(2)
+//	@Bean
+//	public CommandLineRunner commandLineRunner(StudentDao studentDao) {
+//		return s -> {
+//			findAll(studentDao);
+//		};
+//	}
 
-	@Order(3)
+//	@Order(3)
 	@Bean
 	public CommandLineRunner commandLineRunner2(StudentDao studentDao) {
 		return s -> {
-			findByLastName(studentDao);
+//			findByLastName(studentDao);
+//			update(studentDao);
+//			delete(studentDao);
+			deleteAll(studentDao);
 		};
 	}
 
@@ -78,4 +81,21 @@ public class SpringBootJpaApplication {
 		}
 	}
 
+	public void update(StudentDao studentDao) {
+		Student student = studentDao.findById(1);
+		student.setLast_name("Mn");
+		studentDao.update(student);
+		System.out.println("Updated student: " + student);
+	}
+
+	public void delete(StudentDao studentDao) {
+		System.out.println("Enter student id to delete");
+		Scanner sc = new Scanner(System.in);
+		studentDao.delete(sc.nextInt());
+	}
+
+	public void deleteAll(StudentDao studentDao) {
+		System.out.println("Deleting all students");
+		studentDao.deleteAll();
+	}
 }

@@ -31,13 +31,14 @@ public class StudentImpl implements StudentDao {
 
     //read
     @Override
-    public void findById(Integer id) {
+    public Student findById(Integer id) {
         Student student = entityManager.find(Student.class, id);
         if (student != null) {
             System.out.println("Student found: " + student);
         } else {
             System.out.println("No student found with ID: " + id);
         }
+        return student;
     }
 
     public List<Student> findAll() {
@@ -52,5 +53,30 @@ public class StudentImpl implements StudentDao {
         query.setParameter("lastName", lastName);
         List<Student> list=query.getResultList();
         return list;
+    }
+
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        Student student = entityManager.find(Student.class, id);
+        if (student != null) {
+            entityManager.remove(student);
+        } else {
+            System.out.println("No student found with ID: " + id);
+        }
+    }
+
+    @Override
+    @Transactional
+    public int deleteAll() {
+        int status= entityManager.createQuery("delete from Student").executeUpdate();
+        return status;
     }
 }
